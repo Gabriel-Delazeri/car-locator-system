@@ -2,6 +2,7 @@
 
 use App\Models\Costumer;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\CostumerController;
 
 /*
@@ -20,3 +21,5 @@ Route::get('/', function () {
 });
 
 Route::resource('costumers', CostumerController::class);
+Route::resource('vehicles', VehicleController::class);
+
