@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\Costumer;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CostumerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +18,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/test', function(){
+    $populate = Costumer::factory()->create();
+});
+
+Route::resource('costumers', CostumerController::class);
