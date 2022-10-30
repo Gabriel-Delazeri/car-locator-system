@@ -3,8 +3,6 @@
 namespace App\Http\Requests\Costumer;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Http\Exceptions\HttpResponseException;
 
 class StoreCostumerRequest extends FormRequest
 {
@@ -44,15 +42,4 @@ class StoreCostumerRequest extends FormRequest
         ];
     }
 
-    /**
-     * @param Validator $validator
-     * @return void
-     */
-    protected function failedValidation(Validator $validator)
-    {
-        throw new HttpResponseException(response()->json([
-        'errors' => $validator->errors(),
-        'status' => false
-        ], 422));
-    }
 }

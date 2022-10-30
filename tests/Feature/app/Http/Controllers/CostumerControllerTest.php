@@ -47,7 +47,7 @@ class CostumerControllerTest extends TestCase
 
         $response = $this->post(Self::BASE_URL, $costumer);
 
-        $response->assertStatus(200);
+        $response->assertStatus(302);
         $this->assertDatabaseHas('costumers', [
             'document_id' => $costumer['document_id']
         ]);
@@ -62,7 +62,7 @@ class CostumerControllerTest extends TestCase
 
         $response = $this->post(Self::BASE_URL, $costumer);
 
-        $response->assertStatus(422);
+        $response->assertStatus(302);
     }
 
     /**
@@ -104,7 +104,7 @@ class CostumerControllerTest extends TestCase
 
         $response = $this->put(Self::BASE_URL . "/{$costumer->id}", $costumer->toArray());
 
-        $response->assertStatus(200);
+        $response->assertStatus(302);
     }
 
     /**

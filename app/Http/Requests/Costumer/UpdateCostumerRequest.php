@@ -3,8 +3,6 @@
 namespace App\Http\Requests\Costumer;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Http\Exceptions\HttpResponseException;
 
 class UpdateCostumerRequest extends FormRequest
 {
@@ -28,7 +26,7 @@ class UpdateCostumerRequest extends FormRequest
         return [
             'first_name'  => 'required|string|max:255',
             'last_name'   => 'required|string|max:255',
-            'document_id' => 'required|cpf|unique:costumers,'.$this->costumer->id,
+            'document_id' => 'required|cpf|unique:costumers,document_id,'.$this->costumer->id,
         ];
     }
 
@@ -42,17 +40,5 @@ class UpdateCostumerRequest extends FormRequest
             'string'   => 'The field :attribute must have be a string',
             'min'      => 'The field :attribute must have at least :min characters',
         ];
-    }
-
-    /**
-     * @param Validator $validator
-     * @return void
-     */
-    protected function failedValidation(Validator $validator)
-    {
-        throw new HttpResponseException(response()->json([
-        'errors' => $validator->errors(),
-        'status' => false
-        ], 422));
     }
 }

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Costumer;
-use Illuminate\Http\Request;
 use App\Http\Requests\Costumer\StoreCostumerRequest;
 use App\Http\Requests\Costumer\UpdateCostumerRequest;
 
@@ -39,7 +38,7 @@ class CostumerController extends Controller
     {
         $costumer = Costumer::create($request->all());
 
-        return view('costumers.index');
+        return redirect('/costumers')->with('success','Cliente criado com sucesso!');
     }
 
     /**
@@ -74,6 +73,8 @@ class CostumerController extends Controller
     public function update(UpdateCostumerRequest $request, Costumer $costumer)
     {
         $costumer->update($request->validated());
+
+        return redirect('/costumers')->with('success','Cliente atualizado com sucesso!');
     }
 
     /**
@@ -85,5 +86,7 @@ class CostumerController extends Controller
     public function destroy(Costumer $costumer)
     {
         $costumer->delete();
+
+        return redirect('/costumers')->with('success','Cliente deletado com sucesso!');
     }
 }
