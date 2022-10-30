@@ -19,8 +19,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/test', function(){
-    $populate = Costumer::factory()->create();
-});
-
 Route::resource('costumers', CostumerController::class);
