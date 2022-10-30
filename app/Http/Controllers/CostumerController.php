@@ -36,7 +36,7 @@ class CostumerController extends Controller
      */
     public function store(StoreCostumerRequest $request)
     {
-        $costumer = Costumer::create($request->all());
+        Costumer::create($request->validated());
 
         return redirect('/costumers')->with('success','Cliente criado com sucesso!');
     }
