@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('vehicle_id');
             $table->foreignId('costumer_id');
-            $table->enum('status', ['Canceled'])->nullable();
             $table->date('start_date');
             $table->date('end_date');
             $table->timestamps();

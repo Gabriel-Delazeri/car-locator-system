@@ -14,7 +14,6 @@ class CostumerVehicle extends Model
     protected $fillable = [
         'vehicle_id',
         'costumer_id',
-        'status',
         'start_date',
         'end_date'
     ];
