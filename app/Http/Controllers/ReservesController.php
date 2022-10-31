@@ -7,6 +7,7 @@ use App\Models\Costumer;
 use App\Models\CostumerVehicle;
 use App\Services\ReserveVehicleService;
 use App\Http\Requests\Reserves\ReserveVehicleRequest;
+use App\Http\Requests\Reserves\UpdateReserveRequest;
 
 class ReservesController extends Controller
 {
@@ -36,11 +37,7 @@ class ReservesController extends Controller
         $vehicles = Vehicle::all()->toArray();
         $costumers = Costumer::all()->toArray();
 
-        try {
-            return view('reserves.reserve', compact('vehicles', 'costumers'));
-        } catch (\Exception $e) {
-            dd($e->getMessage());
-        }
+        return view('reserves.reserve', compact('vehicles', 'costumers'));
     }
 
     /**
@@ -67,9 +64,25 @@ class ReservesController extends Controller
      * @param CostumerVehicle $reserve
      * @return void
      */
-    public function editReserve(CostumerVehicle $reserve)
+    public function edit(CostumerVehicle $reserve)
     {
-        //
+        $vehicles = Vehicle::all()->toArray();
+        $costumers = Costumer::all()->toArray();
+
+        return view('reserves.edit' , compact('reserve', 'vehicles', 'costumers'));
+    }
+
+    public function update(UpdateReserveRequest $request, CostumerVehicle $reserve)
+    {
+        try {
+            $vehicle = Vehicle::find($request->validated('vehicle'));
+            $this->reserveVehicleService->checkDisponibilityUpdateReserve($reserve, $vehicle, $request->validated());
+            $this->reserveVehicleService->updateReserve($reserve, $request->validated());
+
+            return self::index();
+        } catch(\Exception $e) {
+            return redirect("/reserves/{$reserve->id}/edit")->with('error','Veiculo já está reservado nessa data!');
+        }
     }
 
     /**
@@ -78,7 +91,7 @@ class ReservesController extends Controller
      */
     public function showReserve(CostumerVehicle $reserve)
     {
-        //
+        return view('reserves.show')->with('reserve', $reserve);
     }
 
     /**
@@ -87,6 +100,8 @@ class ReservesController extends Controller
      */
     public function deleteReserve(CostumerVehicle $reserve)
     {
-        //
+        $reserve->delete();
+
+        return redirect('/reserves')->with('success','Reserva deletada com sucesso!');
     }
 }

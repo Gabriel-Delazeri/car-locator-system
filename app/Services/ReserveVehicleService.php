@@ -24,6 +24,16 @@ class ReserveVehicleService
     }
 
     /**
+     * @param CostumerVehicle $costumerVehicle
+     * @param array $update
+     * @return void
+     */
+    public function updateReserve(CostumerVehicle $costumerVehicle, array $update)
+    {
+        $costumerVehicle->update($update);
+    }
+
+    /**
      * @param Vehicle $vehicle
      * @param array $period
      * @return void
@@ -31,12 +41,25 @@ class ReserveVehicleService
      */
     public function checkDisponibility(Vehicle $vehicle, array $period)
     {
-        $reservesInThatDay = CostumerVehicle::where('vehicle_id', $vehicle->id)
+        $reservesInThatPeriod = CostumerVehicle::where('vehicle_id', $vehicle->id)
         ->where('start_date', '<=', $period['start_date'])
         ->where('end_date', '>=', $period['end_date'])
         ->count();
 
-        if ($reservesInThatDay > 0) {
+        if ($reservesInThatPeriod > 0) {
+            throw new \Exception('Carro já reservado nesse dia.');
+        }
+    }
+
+    public function checkDisponibilityUpdateReserve(CostumerVehicle $reserve, Vehicle $vehicle, array $period)
+    {
+        $reservesInThatPeriod = CostumerVehicle::where('vehicle_id', $vehicle->id)
+        ->where('start_date', '<=', $period['start_date'])
+        ->where('end_date', '>=', $period['end_date'])
+        ->where('id', '!=' , $reserve->id)
+        ->count();
+
+        if ($reservesInThatPeriod > 0) {
             throw new \Exception('Carro já reservado nesse dia.');
         }
     }
