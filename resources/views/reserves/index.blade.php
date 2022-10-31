@@ -9,7 +9,7 @@
 <body>
     @include('flash-message')
     <h1>Reservas</h1>
-    <a href="/reserves/reserve">Reservar Veiculo</a>
+    <a href="/reserves/create">Reservar Veiculo</a>
     <table class="table table-dark table-striped">
         <thead>
             <tr>
