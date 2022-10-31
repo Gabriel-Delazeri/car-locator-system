@@ -8,8 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 <body>
     @include('flash-message')
-    <h1>Reservas</h1>
-    <a href="/reserves/reserve">Reservar Veiculo</a>
+    <h1>Reserva {{ $reserve->id }}</h1>
     <table class="table table-dark table-striped">
         <thead>
             <tr>
@@ -18,11 +17,10 @@
                 <th>Cliente</th>
                 <th>Start</th>
                 <th>End</th>
-                <th>Action</th>
+                <th>Ações</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($reserves as $reserve)
             <tr>
                 <td>{{ $reserve['id'] }}</td>
                 <td>{{ $reserve['vehicle_id'] }}</td>
@@ -30,7 +28,6 @@
                 <td>{{ $reserve['start_date'] }}</td>
                 <td>{{ $reserve['end_date'] }}</td>
                 <td>
-                    <a href="/reserves/{{$reserve['id']}}"><i class="bi bi-eye"></i></a>
                     <a href="/reserves/{{ $reserve['id'] }}/edit"><i class="bi bi-pen"></i></a>
                     <form method="post" action="/reserves/{{$reserve['id']}}">
                         @csrf
@@ -39,7 +36,6 @@
                     </form>
                 </td>
             </tr>
-            @endforeach
         </tbody>
     </table>
 </body>
