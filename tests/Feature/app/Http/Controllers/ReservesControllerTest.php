@@ -47,13 +47,13 @@ class ReservesControllerTest extends TestCase
         $vehicles = Vehicle::factory()->count(10)->create();
         $costumers = Costumer::factory()->count(10)->create();
 
-        $response = $this->get(Self::BASE_URL . '/reserve');
+        $response = $this->get(Self::BASE_URL . '/create');
 
         $compactVehicles = $response->viewData('vehicles');
         $compactCostumers = $response->viewData('costumers');
 
         $response->assertStatus(200);
-        $response->assertViewIs('reserves.reserve');
+        $response->assertViewIs('reserves.create');
 
         $this->assertSame($vehicles->count(), sizeof($compactVehicles));
         $this->assertSame($costumers->count(), sizeof($compactCostumers));

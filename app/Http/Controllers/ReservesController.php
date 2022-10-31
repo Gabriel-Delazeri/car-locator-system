@@ -37,7 +37,7 @@ class ReservesController extends Controller
         $vehicles = Vehicle::all()->toArray();
         $costumers = Costumer::all()->toArray();
 
-        return view('reserves.reserve', compact('vehicles', 'costumers'));
+        return view('reserves.create', compact('vehicles', 'costumers'));
     }
 
     /**
@@ -56,7 +56,7 @@ class ReservesController extends Controller
             return self::index();
         } catch(\Exception $e) {
             \Log::error($e->getMessage());
-            return redirect('/reserves/reserve')->with('error','Veiculo já está reservado nessa data!');
+            return redirect('/reserves/create')->with('error','Veiculo já está reservado nessa data!');
         }
     }
 

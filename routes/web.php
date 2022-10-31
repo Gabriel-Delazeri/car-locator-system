@@ -1,9 +1,5 @@
 <?php
 
-use Carbon\Carbon;
-use App\Models\Vehicle;
-use App\Models\Costumer;
-use App\Models\CostumerVehicle;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\CostumerController;
@@ -30,9 +26,12 @@ Route::resource('vehicles', VehicleController::class);
 Route::group([
     'prefix' => 'reserves'], function() {
         Route::get('/', [ReservesController::class, 'index']);
-        Route::get('/reserve', [ReservesController::class, 'getReserveView']);
+        Route::get('/create', [ReservesController::class, 'getReserveView']);
         Route::post('/', [ReservesController::class, 'reserveVehicle']);
-        Route::get('/{id}/edit', [ReservesController::class, 'editReserve']);
+        Route::get('/{reserve}', [ReservesController::class, 'showReserve']);
+        Route::get('/{reserve}/edit', [ReservesController::class, 'edit']);
+        Route::post('/{reserve}/update', [ReservesController::class, 'update']);
+        Route::delete('/{reserve}', [ReservesController::class, 'deleteReserve']);
     }
 );
 
