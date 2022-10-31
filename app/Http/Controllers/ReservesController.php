@@ -53,6 +53,7 @@ class ReservesController extends Controller
             $this->reserveVehicleService->checkDisponibility($vehicle, $request->validated());
             $this->reserveVehicleService->reserveToCostumer($vehicle, $costumer, $request->validated());
 
+            \Log::info("O veiculo $vehicle->id foi reservado para o cliente $costumer->id");
             return self::index();
         } catch(\Exception $e) {
             \Log::error($e->getMessage());
