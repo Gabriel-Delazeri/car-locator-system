@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use DB;
 use App\Models\Vehicle;
 use App\Models\Costumer;
 use App\Models\CostumerVehicle;
