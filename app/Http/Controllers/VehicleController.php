@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Vehicle;
 use App\Http\Requests\Vehicle\StoreVehicleRequest;
 use App\Http\Requests\Vehicle\UpdateVehicleRequest;
-use App\Models\Vehicle;
-use Illuminate\Http\Request;
+use App\Services\ReserveVehicleService;
 
 class VehicleController extends Controller
 {
@@ -86,7 +86,12 @@ class VehicleController extends Controller
      */
     public function destroy(Vehicle $vehicle)
     {
-        $vehicle->delete();
+        try {
+            ReserveVehicleService::checkVehicleIsDeletable($vehicle);
+            $vehicle->delete();
+        } catch(\Exception $e) {
+            return redirect('/vehicles')->with('error',$e->getMessage());
+        }
 
         return redirect('/vehicles')->with('success','Veiculo deletado com sucesso!');
     }

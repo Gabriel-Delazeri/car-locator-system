@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Costumer;
+use App\Services\ReserveVehicleService;
 use App\Http\Requests\Costumer\StoreCostumerRequest;
 use App\Http\Requests\Costumer\UpdateCostumerRequest;
 
@@ -85,7 +86,12 @@ class CostumerController extends Controller
      */
     public function destroy(Costumer $costumer)
     {
-        $costumer->delete();
+        try {
+            ReserveVehicleService::checkCostumerIsDeletable($costumer);
+            $costumer->delete();
+        } catch (\Exception $e) {
+            return redirect('/costumers')->with('error',$e->getMessage());
+        }
 
         return redirect('/costumers')->with('success','Cliente deletado com sucesso!');
     }
