@@ -9,6 +9,10 @@ use App\Http\Requests\Costumer\UpdateCostumerRequest;
 
 class CostumerController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *

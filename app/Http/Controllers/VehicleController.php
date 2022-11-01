@@ -9,6 +9,10 @@ use App\Services\ReserveVehicleService;
 
 class VehicleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +20,7 @@ class VehicleController extends Controller
      */
     public function index()
     {
-        return view('vehicles.index')->with('vehicles', Vehicle::all()->toArray());
+            return view('vehicles.index')->with('vehicles', Vehicle::all()->toArray());
     }
 
     /**
