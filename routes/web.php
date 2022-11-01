@@ -1,9 +1,9 @@
 <?php
 
-use App\Models\Costumer;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\CostumerController;
+use App\Http\Controllers\ReservesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,4 +22,16 @@ Route::get('/', function () {
 
 Route::resource('costumers', CostumerController::class);
 Route::resource('vehicles', VehicleController::class);
+
+Route::group([
+    'prefix' => 'reserves'], function() {
+        Route::get('/', [ReservesController::class, 'index']);
+        Route::get('/create', [ReservesController::class, 'getReserveView']);
+        Route::post('/', [ReservesController::class, 'reserveVehicle']);
+        Route::get('/{reserve}', [ReservesController::class, 'showReserve']);
+        Route::get('/{reserve}/edit', [ReservesController::class, 'edit']);
+        Route::post('/{reserve}/update', [ReservesController::class, 'update']);
+        Route::delete('/{reserve}', [ReservesController::class, 'deleteReserve']);
+    }
+);
 
