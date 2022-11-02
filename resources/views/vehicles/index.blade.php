@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-@include('flash-message')
 <h1>Veiculos</h1>
 <a href="/vehicles/create">Criar Veiculo</a>
 <table class="table table-dark table-striped">
