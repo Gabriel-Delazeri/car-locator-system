@@ -19,6 +19,7 @@ class ReservesController extends Controller
     public function __construct(ReserveVehicleService $reserveVehicleService)
     {
         $this->reserveVehicleService = $reserveVehicleService;
+        $this->middleware('auth');
     }
 
     /**
