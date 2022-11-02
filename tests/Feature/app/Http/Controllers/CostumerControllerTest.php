@@ -17,6 +17,8 @@ class CostumerControllerTest extends TestCase
      */
     public function test_index_method_is_returning_costumers_list_and_view_succesfuly()
     {
+        $this->withoutMiddleware(\App\Http\Middleware\Authenticate::class);
+
         $costumer = Costumer::factory()->count(10)->create();
 
         $response = $this->get(Self::BASE_URL);
@@ -33,6 +35,8 @@ class CostumerControllerTest extends TestCase
      */
     public function test_create_method_is_create_view_succesfuly()
     {
+        $this->withoutMiddleware(\App\Http\Middleware\Authenticate::class);
+
         $response = $this->get(Self::BASE_URL . '/create');
         $response->assertStatus(200);
         $response->assertViewIs('costumers.create');
@@ -43,6 +47,8 @@ class CostumerControllerTest extends TestCase
      */
     public function test_store_costumer_succesfuly()
     {
+        $this->withoutMiddleware(\App\Http\Middleware\Authenticate::class);
+
         $costumer = Costumer::factory()->raw();
 
         $response = $this->post(Self::BASE_URL, $costumer);
@@ -58,6 +64,8 @@ class CostumerControllerTest extends TestCase
      */
     public function test_store_validations_waiting_error()
     {
+        $this->withoutMiddleware(\App\Http\Middleware\Authenticate::class);
+
         $costumer = [];
 
         $response = $this->post(Self::BASE_URL, $costumer);
@@ -70,6 +78,8 @@ class CostumerControllerTest extends TestCase
      */
     public function test_show_method_is_returning_costumer_and_view_succesfuly()
     {
+        $this->withoutMiddleware(\App\Http\Middleware\Authenticate::class);
+
         $costumer = Costumer::factory()->create();
 
         $response = $this->get(Self::BASE_URL . "/{$costumer->id}");
@@ -85,6 +95,8 @@ class CostumerControllerTest extends TestCase
      */
     public function test_edit_is_returning_costumer_and_view_succesfuly()
     {
+        $this->withoutMiddleware(\App\Http\Middleware\Authenticate::class);
+
         $costumer = Costumer::factory()->create();
 
         $response = $this->get(Self::BASE_URL . "/{$costumer->id}/edit");
@@ -100,6 +112,8 @@ class CostumerControllerTest extends TestCase
      */
     public function test_update_costumer_with_same_cpf_waiting_error()
     {
+        $this->withoutMiddleware(\App\Http\Middleware\Authenticate::class);
+
         $costumer = Costumer::factory()->create();
 
         $response = $this->put(Self::BASE_URL . "/{$costumer->id}", $costumer->toArray());
@@ -112,6 +126,8 @@ class CostumerControllerTest extends TestCase
      */
     public function test_updating_costumer_succesfuly()
     {
+        $this->withoutMiddleware(\App\Http\Middleware\Authenticate::class);
+
         $costumer = Costumer::factory()->create();
 
         $update = [
@@ -131,6 +147,8 @@ class CostumerControllerTest extends TestCase
      */
     public function test_delete_costumer_succesfuly()
     {
+        $this->withoutMiddleware(\App\Http\Middleware\Authenticate::class);
+
         $costumer = Costumer::factory()->create();
 
         $this->delete(Self::BASE_URL . "/{$costumer->id}");

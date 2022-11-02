@@ -20,6 +20,8 @@ class ReservesControllerTest extends TestCase
      */
     public function test_reserve_a_vehicle_to_costumer()
     {
+        $this->withoutMiddleware(\App\Http\Middleware\Authenticate::class);
+
         $vehicle = Vehicle::factory()->create();
         $costumer = Costumer::factory()->create();
 
@@ -44,6 +46,8 @@ class ReservesControllerTest extends TestCase
      */
     public function test_get_reserve_view_working_succesfuly()
     {
+        $this->withoutMiddleware(\App\Http\Middleware\Authenticate::class);
+
         $vehicles = Vehicle::factory()->count(10)->create();
         $costumers = Costumer::factory()->count(10)->create();
 
@@ -64,6 +68,8 @@ class ReservesControllerTest extends TestCase
      */
     public function test_reserve_a_vehicle_already_reserved()
     {
+        $this->withoutMiddleware(\App\Http\Middleware\Authenticate::class);
+
         $date = Carbon::now()->format('Y-m-d');
 
         $vehicle = Vehicle::factory()->create();
@@ -88,6 +94,8 @@ class ReservesControllerTest extends TestCase
      */
     public function test_reserve_edit_is_returning_a_view_succesfuly()
     {
+        $this->withoutMiddleware(\App\Http\Middleware\Authenticate::class);
+
         $vehicles = Vehicle::factory()->count(10)->create();
         $costumers = Costumer::factory()->count(10)->create();
 
@@ -115,6 +123,8 @@ class ReservesControllerTest extends TestCase
      */
     public function test_show_reserve_returning_reserve_and_view_succesfuly()
     {
+        $this->withoutMiddleware(\App\Http\Middleware\Authenticate::class);
+
         $reserve = self::generateVehicleCostumerAndReturnReserve();
 
         $response = $this->get(Self::BASE_URL . "/{$reserve->id}");
@@ -128,6 +138,8 @@ class ReservesControllerTest extends TestCase
      */
     public function test_update_reserve_succesfuly()
     {
+        $this->withoutMiddleware(\App\Http\Middleware\Authenticate::class);
+
         $startDate = Carbon::now()->format('Y-m-d');
         $endDate = Carbon::now()->addDays()->format('Y-m-d');
 
@@ -153,6 +165,8 @@ class ReservesControllerTest extends TestCase
      */
     public function test_update_a_reserve_passing_vehicle_already_reserved()
     {
+        $this->withoutMiddleware(\App\Http\Middleware\Authenticate::class);
+
         $startDate = Carbon::now()->format('Y-m-d');
         $endDate = Carbon::now()->addDays()->format('Y-m-d');
 
@@ -174,6 +188,8 @@ class ReservesControllerTest extends TestCase
      */
     public function test_delete_reserve_succesfuly()
     {
+        $this->withoutMiddleware(\App\Http\Middleware\Authenticate::class);
+
         $startDate = Carbon::now()->format('Y-m-d');
         $endDate = Carbon::now()->addDays()->format('Y-m-d');
 
@@ -191,6 +207,8 @@ class ReservesControllerTest extends TestCase
      */
     private function generateVehicleCostumerAndReturnReserve($startDate = null, $endDate = null)
     {
+        $this->withoutMiddleware(\App\Http\Middleware\Authenticate::class);
+
         $vehicle = Vehicle::factory()->create();
         $costumer = Costumer::factory()->create();
 

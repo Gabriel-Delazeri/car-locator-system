@@ -17,6 +17,8 @@ class VehicleControllerTest extends TestCase
      */
     public function test_index_method_is_returning_vehicles_list_and_view_succesfuly()
     {
+        $this->withoutMiddleware(\App\Http\Middleware\Authenticate::class);
+
         $vehicle = Vehicle::factory()->count(10)->create();
 
         $response = $this->get(Self::BASE_URL);
@@ -33,6 +35,8 @@ class VehicleControllerTest extends TestCase
      */
     public function test_create_method_is_returning_create_view_succesfuly()
     {
+        $this->withoutMiddleware(\App\Http\Middleware\Authenticate::class);
+
         $response = $this->get(Self::BASE_URL . '/create');
         $response->assertStatus(200);
         $response->assertViewIs('vehicles.create');
@@ -43,6 +47,8 @@ class VehicleControllerTest extends TestCase
      */
     public function test_store_vehicle_succesfuly()
     {
+        $this->withoutMiddleware(\App\Http\Middleware\Authenticate::class);
+
         $vehicle = Vehicle::factory()->raw();
 
         $response = $this->post(Self::BASE_URL, $vehicle);
@@ -58,6 +64,8 @@ class VehicleControllerTest extends TestCase
      */
     public function test_store_validations_waiting_error()
     {
+        $this->withoutMiddleware(\App\Http\Middleware\Authenticate::class);
+
         $vehicle = [];
 
         $response = $this->post(Self::BASE_URL, $vehicle);
@@ -70,6 +78,8 @@ class VehicleControllerTest extends TestCase
      */
     public function test_show_method_is_returning_vehicle_and_view_succesfuly()
     {
+        $this->withoutMiddleware(\App\Http\Middleware\Authenticate::class);
+
         $vehicle = Vehicle::factory()->create();
 
         $response = $this->get(Self::BASE_URL . "/{$vehicle->id}");
@@ -85,6 +95,8 @@ class VehicleControllerTest extends TestCase
      */
     public function test_edit_is_returning_vehicle_and_view_succesfuly()
     {
+        $this->withoutMiddleware(\App\Http\Middleware\Authenticate::class);
+
         $vehicle = Vehicle::factory()->create();
 
         $response = $this->get(Self::BASE_URL . "/{$vehicle->id}/edit");
@@ -100,6 +112,8 @@ class VehicleControllerTest extends TestCase
      */
     public function test_updating_vehicle_succesfuly()
     {
+        $this->withoutMiddleware(\App\Http\Middleware\Authenticate::class);
+
         $vehicle = Vehicle::factory()->create();
 
         $update = [
@@ -120,6 +134,8 @@ class VehicleControllerTest extends TestCase
      */
     public function test_delete_vehicle_succesfuly()
     {
+        $this->withoutMiddleware(\App\Http\Middleware\Authenticate::class);
+
         $vehicle = Vehicle::factory()->create();
 
         $this->delete(Self::BASE_URL . "/{$vehicle->id}");
